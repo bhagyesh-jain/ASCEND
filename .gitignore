@@ -1,0 +1,56 @@
+# Build directories
+bin/
+obj/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# IDE settings
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+
+# Database files
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# EF Core migrations snapshots (keep migrations but ignore generated snapshots if not needed)
+[Mm]igrations/*Designer.cs
+
+# Configuration secrets
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.json
+
+# Publish outputs
+*.publish.xml
+*.pubxml
+*.pubxml.user
+
+# Generated files
+project.nuget.cache
+*.nuget.g.props
+*.nuget.g.targets
+*.cache
+*.pdb
+
+# Static assets build outputs
+wwwroot/lib/
+wwwroot/css/*.map
+wwwroot/js/*.map
+
+# Rider / JetBrains
+.idea/
+*.iml
+
+# Visual Studio
+*.vs/
