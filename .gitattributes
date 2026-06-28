@@ -1,0 +1,42 @@
+# Normalize line endings for cross-platform consistency
+* text=auto
+
+# C# source files should use CRLF on Windows
+*.cs text eol=crlf
+
+# Razor views and HTML should use LF
+*.cshtml text eol=lf
+*.html text eol=lf
+
+# JSON, XML, and config files should use LF
+*.json text eol=lf
+*.xml text eol=lf
+*.config text eol=lf
+
+# CSS and JS should use LF
+*.css text eol=lf
+*.js text eol=lf
+
+# SQL scripts should use LF
+*.sql text eol=lf
+
+# Markdown and documentation
+*.md text eol=lf
+
+# Binary files - keep untouched
+*.dll binary
+*.exe binary
+*.pdb binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.gif binary
+
+# Fonts and other assets
+*.ttf binary
+*.woff binary
+*.woff2 binary
+
+# Do not normalize NuGet packages or build outputs
+*.nupkg binary
+*.cache binary

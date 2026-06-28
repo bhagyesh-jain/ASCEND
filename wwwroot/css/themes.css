@@ -1,0 +1,171 @@
+/* Google Fonts Imports for Themes */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;500;700;900&family=Inter:wght@300;400;600;800&display=swap');
+
+/* ==========================================
+   THEME VARIABLES
+   ========================================== */
+
+/* 1. SHADOW HUNTER (Dark Blue & Neon Cyan/Purple) */
+[data-theme="Shadow Hunter"] {
+  --bg-primary: #0B0F19;
+  --bg-secondary: #111827;
+  --bg-glass: rgba(11, 15, 25, 0.65);
+  --border-glass: rgba(0, 207, 255, 0.15);
+  --border-glass-hover: rgba(0, 207, 255, 0.35);
+  
+  --text-primary: #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-accent: #00CFFF;
+  
+  --color-primary: #00CFFF;
+  --color-secondary: #6A5ACD;
+  --color-accent: #5DE2FF;
+  
+  --glow-color: rgba(0, 207, 255, 0.5);
+  --glow-secondary: rgba(106, 90, 205, 0.5);
+  --glow-shadow: 0 0 15px var(--glow-color);
+  
+  --font-display: 'Orbitron', sans-serif;
+  --bg-gradient: linear-gradient(135deg, #0B0F19 0%, #151C2C 100%);
+  --card-gradient: linear-gradient(135deg, rgba(0, 207, 255, 0.03) 0%, rgba(106, 90, 205, 0.05) 100%);
+}
+
+/* 2. SAKURA ASCENSION (Deep Violet & Elegant Pink) */
+[data-theme="Sakura Ascension"] {
+  --bg-primary: #1A1025;
+  --bg-secondary: #241635;
+  --bg-glass: rgba(26, 16, 37, 0.7);
+  --border-glass: rgba(255, 126, 182, 0.2);
+  --border-glass-hover: rgba(255, 126, 182, 0.45);
+  
+  --text-primary: #FFF1F2;
+  --text-secondary: #D8B4FE;
+  --text-accent: #FF7EB6;
+  
+  --color-primary: #FF7EB6;
+  --color-secondary: #C084FC;
+  --color-accent: #FFD6E8;
+  
+  --glow-color: rgba(255, 126, 182, 0.5);
+  --glow-secondary: rgba(192, 132, 252, 0.4);
+  --glow-shadow: 0 0 15px var(--glow-color);
+  
+  --font-display: 'Playfair Display', serif;
+  --bg-gradient: linear-gradient(135deg, #1A1025 0%, #291B3A 100%);
+  --card-gradient: linear-gradient(135deg, rgba(255, 126, 182, 0.05) 0%, rgba(192, 132, 252, 0.05) 100%);
+}
+
+/* 3. CELESTIAL REALM (Cosmic Navy & Starry Purple) */
+[data-theme="Celestial Realm"] {
+  --bg-primary: #0D1B2A;
+  --bg-secondary: #1B263B;
+  --bg-glass: rgba(13, 27, 42, 0.75);
+  --border-glass: rgba(224, 170, 255, 0.15);
+  --border-glass-hover: rgba(224, 170, 255, 0.35);
+  
+  --text-primary: #F0E6FF;
+  --text-secondary: #A5A5A5;
+  --text-accent: #E0AAFF;
+  
+  --color-primary: #E0AAFF;
+  --color-secondary: #FFD6FF;
+  --color-accent: #FFFFFF; /* Silver / White */
+  
+  --glow-color: rgba(224, 170, 255, 0.5);
+  --glow-secondary: rgba(255, 214, 255, 0.4);
+  --glow-shadow: 0 0 15px var(--glow-color);
+  
+  --font-display: 'Montserrat', sans-serif;
+  --bg-gradient: linear-gradient(135deg, #0D1B2A 0%, #1B263B 100%);
+  --card-gradient: linear-gradient(135deg, rgba(224, 170, 255, 0.04) 0%, rgba(255, 214, 255, 0.04) 100%);
+}
+
+/* 4. FOREST GUARDIAN (Deep Emerald & Celestial Gold) */
+[data-theme="Forest Guardian"] {
+  --bg-primary: #102A13;
+  --bg-secondary: #163E1B;
+  --bg-glass: rgba(16, 42, 19, 0.7);
+  --border-glass: rgba(76, 175, 80, 0.25);
+  --border-glass-hover: rgba(255, 215, 0, 0.3);
+  
+  --text-primary: #F1F8E9;
+  --text-secondary: #C5E1A5;
+  --text-accent: #FFD700; /* Gold */
+  
+  --color-primary: #4CAF50;
+  --color-secondary: #81C784;
+  --color-accent: #FFD700;
+  
+  --glow-color: rgba(76, 175, 80, 0.5);
+  --glow-secondary: rgba(255, 215, 0, 0.4);
+  --glow-shadow: 0 0 15px var(--glow-color);
+  
+  --font-display: 'Inter', sans-serif;
+  --bg-gradient: linear-gradient(135deg, #102A13 0%, #1B4D22 100%);
+  --card-gradient: linear-gradient(135deg, rgba(76, 175, 80, 0.05) 0%, rgba(255, 215, 0, 0.05) 100%);
+}
+
+/* ==========================================
+   THEME TRANSITIONS
+   ========================================== */
+body, 
+.glass-card, 
+.status-window, 
+.btn-premium, 
+.quest-item, 
+h1, h2, h3, h4, 
+.progress-bar-inner {
+  transition: background 0.5s ease, 
+              border 0.5s ease, 
+              color 0.5s ease, 
+              box-shadow 0.5s ease, 
+              font-family 0.5s ease;
+}
+
+/* ==========================================
+   THEME-SPECIFIC CLASSIC EFFECTS
+   ========================================== */
+
+/* Neon Text Pulse (Shadow Hunter) */
+[data-theme="Shadow Hunter"] .neon-text {
+  text-shadow: 0 0 10px rgba(0, 207, 255, 0.6), 0 0 20px rgba(0, 207, 255, 0.3);
+  animation: shadowPulse 2s infinite alternate;
+}
+
+/* Elegant Text Shimmer (Sakura) */
+[data-theme="Sakura Ascension"] .neon-text {
+  background: linear-gradient(90deg, #FF7EB6, #C084FC, #FFD6E8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: sakuraShimmer 3s linear infinite;
+  background-size: 200% auto;
+}
+
+/* Cosmic Glow (Celestial) */
+[data-theme="Celestial Realm"] .neon-text {
+  text-shadow: 0 0 8px rgba(224, 170, 255, 0.8), 0 0 15px rgba(255, 214, 255, 0.4);
+}
+
+/* Golden Sparkle (Forest) */
+[data-theme="Forest Guardian"] .neon-text {
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.6), 0 0 15px rgba(76, 175, 80, 0.4);
+}
+
+/* Animations definitions */
+@keyframes shadowPulse {
+  0% {
+    text-shadow: 0 0 8px rgba(0, 207, 255, 0.6), 0 0 15px rgba(0, 207, 255, 0.3);
+  }
+  100% {
+    text-shadow: 0 0 15px rgba(0, 207, 255, 0.9), 0 0 30px rgba(106, 90, 205, 0.6);
+  }
+}
+
+@keyframes sakuraShimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}

@@ -1,0 +1,112 @@
+@{
+    var isAuthenticated = User.Identity?.IsAuthenticated == true;
+    var theme = User.FindFirst("Theme")?.Value ?? "Shadow Hunter";
+    var username = User.Identity?.Name ?? "Guest";
+    var userEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value ?? "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ASCEND - Gamified Habit Streak Tracker</title>
+    <meta name="description" content="One App. Many Worlds. Endless Growth. Turn your habits into daily quests and level up your life." />
+    
+    <!-- FontAwesome for RPG Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Custom Theme and Site Styles -->
+    <link rel="stylesheet" href="~/css/themes.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body data-theme="@theme">
+    <!-- Fullscreen canvas for theme particle effects -->
+    <canvas id="theme-canvas"></canvas>
+
+    @if (isAuthenticated)
+    {
+        <div class="app-container">
+            <!-- Glassmorphic Sidebar Nav -->
+            <aside class="app-sidebar">
+                <a asp-controller="Home" asp-action="Index" class="sidebar-logo">
+                    <i class="fa-solid fa-angles-up"></i>
+                    <span>ASCEND</span>
+                </a>
+                
+                <nav class="sidebar-nav">
+                    <a asp-controller="Home" asp-action="Index" class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active" : "")">
+                        <i class="fa-solid fa-gauge-high"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a asp-controller="Habits" asp-action="Index" class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Habits" ? "active" : "")">
+                        <i class="fa-solid fa-scroll"></i>
+                        <span>Quests</span>
+                    </a>
+                    <a asp-controller="Stats" asp-action="Index" class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Stats" ? "active" : "")">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Statistics</span>
+                    </a>
+                    <a asp-controller="Profile" asp-action="Index" class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Profile" ? "active" : "")">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>Profile & Shop</span>
+                    </a>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <div class="user-snippet">
+                        <div class="user-avatar">
+                            @username.Substring(0, Math.Min(2, username.Length)).ToUpper()
+                        </div>
+                        <div class="user-meta">
+                            <span class="name">@username</span>
+                            <span class="title">Hunter</span>
+                        </div>
+                    </div>
+                    <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn-logout">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <span>Logout</span>
+                        </button>
+                    </form>
+                </div>
+            </aside>
+
+            <!-- Main App Content -->
+            <main class="main-content">
+                @RenderBody()
+            </main>
+        </div>
+
+        <!-- Level Up Modal Popup -->
+        <div id="level-up-modal" class="level-up-modal">
+            <div class="level-up-window">
+                <div class="level-up-banner">Level Up!</div>
+                <div class="level-up-text">Your power has increased. You have ascended to a new height!</div>
+                <div class="level-up-badge" id="modal-level-badge">1</div>
+                <div>
+                    <h3 style="font-family: var(--font-display); color: var(--color-accent); margin-bottom: 2rem;" id="modal-rank-text">E Rank</h3>
+                </div>
+                <button class="btn-premium" onclick="closeLevelUpModal()">
+                    <i class="fa-solid fa-sword"></i> Continue Hunt
+                </button>
+            </div>
+        </div>
+
+        <!-- Toast Notification Container -->
+        <div id="toast-container" class="toast-container"></div>
+    }
+    else
+    {
+        <!-- Center-aligned layouts for Login / Register -->
+        <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 1.5rem;">
+            @RenderBody()
+        </div>
+    }
+
+    <!-- Scripts -->
+    <script src="~/js/themes.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

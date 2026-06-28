@@ -1,0 +1,25 @@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+    Layout = "_Layout";
+}
+
+<div class="glass-card" style="max-width: 540px; margin: 0 auto; text-align: center; padding: 3rem 2rem; border-color: #EF4444; box-shadow: 0 0 20px rgba(239, 68, 68, 0.15);">
+    <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(239, 68, 68, 0.1); border: 2px solid #EF4444; display: flex; align-items: center; justify-content: center; color: #EF4444; margin: 0 auto 2rem; filter: drop-shadow(0 0 8px rgba(239,68,68,0.3));">
+        <i class="fa-solid fa-triangle-exclamation" style="font-size: 1.8rem;"></i>
+    </div>
+
+    <h1 style="font-family: var(--font-display); font-size: 2rem; font-weight: 900; margin-bottom: 0.5rem; color: #EF4444;">System Anomaly</h1>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">An error occurred while processing your quest request. The system has logged the event.</p>
+
+    @if (Model.ShowRequestId)
+    {
+        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-glass); padding: 0.75rem 1rem; border-radius: 12px; font-family: monospace; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 2rem; word-break: break-all;">
+            <strong>Request ID:</strong> @Model.RequestId
+        </div>
+    }
+
+    <a asp-controller="Home" asp-action="Index" class="btn-premium">
+        <i class="fa-solid fa-house"></i> Return to Safe Zone
+    </a>
+</div>

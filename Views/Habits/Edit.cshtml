@@ -1,0 +1,99 @@
+@model HabitVM
+@{
+    ViewData["Title"] = "Edit Quest";
+}
+
+<div style="max-width: 640px; margin: 0 auto;">
+    <div style="margin-bottom: 2rem;">
+        <a asp-action="Index" style="color: var(--color-primary); text-decoration: none; font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-arrow-left"></i> Back to Quests
+        </a>
+        <h1 style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 900; letter-spacing: 1px; margin-top: 1rem;">
+            <i class="fa-solid fa-pen-to-square" style="color: var(--color-primary); margin-right: 10px;"></i>Modify Quest
+        </h1>
+        <p style="color: var(--text-secondary); margin-top: 4px;">Alter the details of your habit quest. Adjust its properties as your goals evolve.</p>
+    </div>
+
+    <div class="glass-card" style="padding: 2.5rem; border-radius: 20px;">
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="HabitId" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger" style="margin-bottom: 1rem;"></div>
+
+            <!-- Quest Name -->
+            <div class="form-group">
+                <label asp-for="Name" class="form-label">Quest Name</label>
+                <input asp-for="Name" class="form-input" placeholder="e.g., Study C# Algorithms, Morning Jog, Read 10 Pages" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <!-- Category -->
+                <div class="form-group">
+                    <label asp-for="Category" class="form-label">Category</label>
+                    <select asp-for="Category" class="form-input" style="cursor: pointer;">
+                        <option value="Study">Study</option>
+                        <option value="Exercise">Exercise</option>
+                        <option value="Reading">Reading</option>
+                        <option value="Meditation">Meditation</option>
+                        <option value="Coding">Coding</option>
+                        <option value="Water">Water Intake</option>
+                        <option value="Custom">Custom</option>
+                    </select>
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+
+                <!-- Difficulty -->
+                <div class="form-group">
+                    <label asp-for="Difficulty" class="form-label">Quest Difficulty</label>
+                    <select asp-for="Difficulty" class="form-input" style="cursor: pointer;">
+                        <option value="Trivial">Trivial (+10 XP)</option>
+                        <option value="Easy">Easy (+20 XP)</option>
+                        <option value="Medium">Medium (+40 XP)</option>
+                        <option value="Hard">Hard (+75 XP)</option>
+                        <option value="Expert">Expert (+120 XP)</option>
+                    </select>
+                    <span asp-validation-for="Difficulty" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <!-- Color Picker -->
+                <div class="form-group">
+                    <label asp-for="Color" class="form-label">Quest Aura Color</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input asp-for="Color" type="color" class="form-input" style="width: 60px; height: 46px; padding: 2px; cursor: pointer;" />
+                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Select the color for the quest card glow.</span>
+                    </div>
+                    <span asp-validation-for="Color" class="text-danger"></span>
+                </div>
+
+                <!-- Icon -->
+                <div class="form-group">
+                    <label asp-for="Icon" class="form-label">FontAwesome Icon Class</label>
+                    <input asp-for="Icon" class="form-input" placeholder="e.g. fa-dumbbell, fa-code, fa-tint" />
+                    <span style="font-size: 0.75rem; color: var(--text-secondary);">Used if Category is set to 'Custom'.</span>
+                    <span asp-validation-for="Icon" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Reminder Time -->
+            <div class="form-group">
+                <label asp-for="ReminderTime" class="form-label">Daily Reminder Time (Optional)</label>
+                <input asp-for="ReminderTime" type="time" class="form-input" />
+                <span asp-validation-for="ReminderTime" class="text-danger"></span>
+            </div>
+
+            <!-- Submit -->
+            <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 2rem; border-top: 1px solid var(--border-glass); padding-top: 1.5rem;">
+                <a asp-action="Index" class="btn-premium" style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); color: var(--text-primary); box-shadow: none;">
+                    Cancel
+                </a>
+                <button type="submit" class="btn-premium">
+                    <i class="fa-solid fa-circle-check"></i> Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
