@@ -3,31 +3,31 @@
     ViewData["Title"] = "Awaken Quest";
 }
 
-<div style="max-width: 640px; margin: 0 auto;">
+<div style="max-width: 680px; margin: 0 auto; padding-bottom: 3rem;">
     <div style="margin-bottom: 2rem;">
-        <a asp-action="Index" style="color: var(--color-primary); text-decoration: none; font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
-            <i class="fa-solid fa-arrow-left"></i> Back to Quests
+        <a asp-action="Index" style="color: var(--color-primary); text-decoration: none; font-size: 0.9rem; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+            <i class="fa-solid fa-arrow-left"></i> Back to Quest Log
         </a>
         <h1 style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 900; letter-spacing: 1px; margin-top: 1rem;">
-            <i class="fa-solid fa-wand-sparkles" style="color: var(--color-primary); margin-right: 10px;"></i>Awaken New Quest
+            <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--color-primary); margin-right: 10px; filter: drop-shadow(0 0 5px var(--glow-color));"></i>Awaken New Quest
         </h1>
-        <p style="color: var(--text-secondary); margin-top: 4px;">Formulate a new daily habit. Choose its category, difficulty, and visual identity.</p>
+        <p style="color: var(--text-secondary); margin-top: 4px;">Formulate a new daily objective. Choose its rank, rewards, and visual aura identity.</p>
     </div>
 
-    <div class="glass-card" style="padding: 2.5rem; border-radius: 20px;">
+    <div class="glass-card" style="padding: 2.5rem; border-radius: 24px;">
         <form asp-action="Create" method="post">
             @Html.AntiForgeryToken()
 
-            <div asp-validation-summary="ModelOnly" class="text-danger" style="margin-bottom: 1rem;"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger" style="margin-bottom: 1.5rem; list-style-type: none; padding: 0;"></div>
 
             <!-- Quest Name -->
             <div class="form-group">
                 <label asp-for="Name" class="form-label">Quest Name</label>
-                <input asp-for="Name" class="form-input" placeholder="e.g., Study C# Algorithms, Morning Jog, Read 10 Pages" />
+                <input asp-for="Name" class="form-input" placeholder="e.g., Study C# Algorithms, Morning Jog, Read 10 Pages" required />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 0.5rem;">
                 <!-- Category -->
                 <div class="form-group">
                     <label asp-for="Category" class="form-label">Category</label>
@@ -45,7 +45,7 @@
 
                 <!-- Difficulty -->
                 <div class="form-group">
-                    <label asp-for="Difficulty" class="form-label">Quest Difficulty</label>
+                    <label asp-for="Difficulty" class="form-label">Quest Difficulty / Rank</label>
                     <select asp-for="Difficulty" class="form-input" style="cursor: pointer;">
                         <option value="Trivial">Trivial (+10 XP)</option>
                         <option value="Easy">Easy (+20 XP)</option>
@@ -57,13 +57,13 @@
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 0.5rem;">
                 <!-- Color Picker -->
                 <div class="form-group">
                     <label asp-for="Color" class="form-label">Quest Aura Color</label>
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <input asp-for="Color" type="color" class="form-input" style="width: 60px; height: 46px; padding: 2px; cursor: pointer;" />
-                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Select the color for the quest card glow.</span>
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <input asp-for="Color" type="color" class="form-input" style="width: 70px; height: 46px; padding: 2px; cursor: pointer;" />
+                        <span style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.3;">Select color for quest border glow.</span>
                     </div>
                     <span asp-validation-for="Color" class="text-danger"></span>
                 </div>
@@ -72,7 +72,7 @@
                 <div class="form-group">
                     <label asp-for="Icon" class="form-label">FontAwesome Icon Class</label>
                     <input asp-for="Icon" class="form-input" placeholder="e.g. fa-dumbbell, fa-code, fa-tint" />
-                    <span style="font-size: 0.75rem; color: var(--text-secondary);">Used if Category is set to 'Custom'.</span>
+                    <span style="font-size: 0.75rem; color: var(--text-secondary);">Used primarily if Category is 'Custom'.</span>
                     <span asp-validation-for="Icon" class="text-danger"></span>
                 </div>
             </div>
@@ -86,7 +86,7 @@
 
             <!-- Submit -->
             <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 2rem; border-top: 1px solid var(--border-glass); padding-top: 1.5rem;">
-                <a asp-action="Index" class="btn-premium" style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); color: var(--text-primary); box-shadow: none;">
+                <a asp-action="Index" class="btn-premium" style="background: rgba(255, 255, 255, 0.04); border: 1.5px solid var(--border-glass); color: var(--text-primary); box-shadow: none;">
                     Cancel
                 </a>
                 <button type="submit" class="btn-premium">
@@ -96,3 +96,14 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    <style>
+        @@media (max-width: 576px) {
+            .form-row {
+                grid-template-columns: 1fr !important;
+                gap: 0 !important;
+            }
+        }
+    </style>
+}

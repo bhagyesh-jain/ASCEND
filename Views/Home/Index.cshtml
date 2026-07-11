@@ -1,54 +1,73 @@
 @model DashboardVM
 @{
     ViewData["Title"] = "Dashboard";
+    var activeTheme = User.FindFirst("Theme")?.Value ?? "Shadow Hunter";
+    
+    // Dynamic taglines, class titles, icons and decorations for each theme
+    var tagline = activeTheme switch
+    {
+        "Sakura Ascension" => "Bloom and Grow!",
+        "Celestial Realm" => "Towards the Stars!",
+        "Forest Guardian" => "In Harmony with Nature!",
+        _ => "You have become Stronger!"
+    };
+
+    var classTitle = activeTheme switch
+    {
+        "Sakura Ascension" => "Dreamer",
+        "Celestial Realm" => "Stargazer",
+        "Forest Guardian" => "Guardian",
+        _ => "Hunter"
+    };
+
+    var crestIcon = activeTheme switch
+    {
+        "Sakura Ascension" => "fa-spa",
+        "Celestial Realm" => "fa-moon",
+        "Forest Guardian" => "fa-leaf",
+        _ => "fa-skull-crossbones"
+    };
+
+    var avatarIcon = activeTheme switch
+    {
+        "Sakura Ascension" => "fa-user-astronaut", // Will style with theme colors
+        "Celestial Realm" => "fa-user-tie",
+        "Forest Guardian" => "fa-user-shield",
+        _ => "fa-user-ninja"
+    };
 }
 
-<div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2.5rem; align-items: start;">
+<div class="dashboard-grid" style="display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 2rem; align-items: start;">
     <!-- LEFT COLUMN: Status & Quests -->
-    <div style="display: flex; flex-direction: column; gap: 2.5rem;">
+    <div style="display: flex; flex-direction: column; gap: 2rem;">
         
         <!-- RPG Character Status Card -->
-        <div class="glass-card status-window">
-            <div class="status-header">
-                <div class="status-title-group">
-                    <span style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700;">Hunter Profile</span>
-                    <h2 class="neon-text" style="margin-top: 2px;">@Model.User.Username</h2>
+        <div class="glass-card status-window" style="padding: 2rem; border-radius: 24px;">
+            <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+                <!-- Theme-based Avatar Silhouette with glowing ring -->
+                <div class="user-avatar" style="width: 70px; height: 70px; border-width: 3px; font-size: 1.8rem; box-shadow: var(--avatar-glow);">
+                    <i class="fa-solid @avatarIcon"></i>
                 </div>
-                <div class="rank-badge">@Model.User.Rank</div>
-            </div>
-
-            <div class="status-grid">
-                <div class="status-item">
-                    <span class="status-label">Equipped Title</span>
-                    <span class="status-value accent" style="font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; letter-spacing: 0.5px;">
-                        [@Model.User.EquippedTitle]
-                    </span>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">Current Level</span>
-                    <span class="status-value user-level-value" style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; color: var(--color-primary);">
-                        @Model.User.Level
-                    </span>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">Current Streak</span>
-                    <span class="status-value" style="display: flex; align-items: center; gap: 8px;">
-                        <i class="fa-solid fa-fire" style="color: #FF5722; filter: drop-shadow(0 0 5px rgba(255,87,34,0.5));"></i>
-                        <span class="streak-value">@Model.User.CurrentStreak</span> Days
-                    </span>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">Longest Streak</span>
-                    <span class="status-value">
-                        @Model.User.LongestStreak Days
-                    </span>
+                <div style="flex-grow: 1;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                        <div>
+                            <span style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700;">Hunter Profile</span>
+                            <h2 class="neon-text" style="font-family: var(--font-display); font-size: 2rem; font-weight: 900; line-height: 1.2; margin-top: 2px;">@Model.User.Username</h2>
+                        </div>
+                        <div class="rank-badge" style="animation: pulseRank 2s infinite alternate;">@Model.User.Rank</div>
+                    </div>
+                    <div style="margin-top: 8px; display: flex; align-items: center; gap: 12px; font-size: 0.85rem; color: var(--text-secondary);">
+                        <span>Class: <strong style="color: var(--color-primary);">@classTitle</strong></span>
+                        <span>|</span>
+                        <span>Title: <strong style="color: var(--color-accent);">[@Model.User.EquippedTitle]</strong></span>
+                    </div>
                 </div>
             </div>
 
             <!-- XP Progress Bar -->
-            <div class="xp-section">
+            <div class="xp-section" style="margin-top: 1.5rem;">
                 <div class="xp-labels">
-                    <span>XP PROGRESS</span>
+                    <span>XP PROGRESS (LEVEL @Model.User.Level)</span>
                     <span class="xp-text-value">@Model.User.XP / @Model.XPNeededForNextLevel XP</span>
                 </div>
                 <div class="xp-bar-container">
@@ -57,11 +76,38 @@
             </div>
         </div>
 
+        <!-- Three Compact Statistics Cards -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;">
+            <!-- Streak Card -->
+            <div class="glass-card" style="text-align: center; padding: 1.25rem 1rem; display: flex; flex-direction: column; align-items: center; gap: 6px; border-radius: 18px;">
+                <i class="fa-solid fa-fire" style="font-size: 1.6rem; color: #FF5722; filter: drop-shadow(0 0 6px rgba(255,87,34,0.4));"></i>
+                <span style="font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Current Streak</span>
+                <span style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; color: #F97316;" class="streak-value">@Model.User.CurrentStreak</span>
+                <span style="font-size: 0.7rem; color: var(--text-secondary); font-weight: 500;">Consecutive Days</span>
+            </div>
+
+            <!-- Rank Card -->
+            <div class="glass-card" style="text-align: center; padding: 1.25rem 1rem; display: flex; flex-direction: column; align-items: center; gap: 6px; border-radius: 18px;">
+                <i class="fa-solid fa-shield-halved" style="font-size: 1.6rem; color: var(--color-primary); filter: drop-shadow(0 0 6px var(--glow-color));"></i>
+                <span style="font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Quest Rank</span>
+                <span style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; color: var(--color-primary);">@Model.User.Rank.Replace(" Rank", "")</span>
+                <span style="font-size: 0.7rem; color: var(--text-secondary); font-weight: 500;">Tier Level</span>
+            </div>
+
+            <!-- Level progress/XP Card -->
+            <div class="glass-card" style="text-align: center; padding: 1.25rem 1rem; display: flex; flex-direction: column; align-items: center; gap: 6px; border-radius: 18px;">
+                <i class="fa-solid fa-crown" style="font-size: 1.6rem; color: var(--color-accent); filter: drop-shadow(0 0 6px var(--glow-secondary));"></i>
+                <span style="font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Total Points</span>
+                <span style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; color: var(--color-accent);">@Model.User.XP</span>
+                <span style="font-size: 0.7rem; color: var(--text-secondary); font-weight: 500;">Active XP Pool</span>
+            </div>
+        </div>
+
         <!-- Today's Quests (Habits) -->
         <div>
             <div class="quest-section-header">
-                <span><i class="fa-solid fa-journal-whills" style="color: var(--color-primary); margin-right: 10px;"></i>Today's Quests</span>
-                <a asp-controller="Habits" asp-action="Create" class="btn-premium" style="font-size: 0.8rem; padding: 0.5rem 1rem;">
+                <span><i class="fa-solid fa-scroll" style="color: var(--color-primary); margin-right: 10px; filter: drop-shadow(0 0 5px var(--glow-color));"></i>Active Daily Quests</span>
+                <a asp-controller="Habits" asp-action="Create" class="btn-premium" style="font-size: 0.75rem; padding: 0.5rem 1.15rem;">
                     <i class="fa-solid fa-plus"></i> New Quest
                 </a>
             </div>
@@ -69,10 +115,10 @@
             <div class="quest-list">
                 @if (Model.HabitsToday.Count == 0)
                 {
-                    <div class="glass-card" style="text-align: center; padding: 3rem 1.5rem; color: var(--text-secondary);">
-                        <i class="fa-solid fa-circle-question" style="font-size: 3rem; color: var(--border-glass-hover); margin-bottom: 1rem;"></i>
-                        <p style="font-weight: 500;">No active quests found for today.</p>
-                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Go to the <a asp-controller="Habits" asp-action="Index" style="color: var(--color-primary); font-weight: 600; text-decoration: none;">Quests page</a> to awaken your daily habits!</p>
+                    <div class="glass-card" style="text-align: center; padding: 3.5rem 1.5rem; color: var(--text-secondary); border-radius: 20px;">
+                        <i class="fa-solid fa-clipboard-question" style="font-size: 3.5rem; color: var(--border-glass); margin-bottom: 1.25rem;"></i>
+                        <p style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">No Daily Quests Active</p>
+                        <p style="font-size: 0.85rem; margin-top: 0.4rem; max-width: 320px; margin-left: auto; margin-right: auto;">Your board is currently clear! Awaken a new habit quest to earn rewards.</p>
                     </div>
                 }
                 else
@@ -93,28 +139,28 @@
                             _ => quest.Icon
                         };
 
-                        <div class="quest-item @(quest.CompletedToday ? "completed" : "")" data-habit-id="@quest.HabitId">
+                        <div class="quest-item @(quest.CompletedToday ? "completed" : "")" data-habit-id="@quest.HabitId" style="border-left: 4px solid @quest.Color; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);">
                             <div class="quest-left">
                                 <label class="quest-checkbox-wrapper">
                                     <input type="checkbox" class="quest-checkbox" data-habit-id="@quest.HabitId" checked="@quest.CompletedToday" />
-                                    <span class="quest-checkmark">
-                                        <i class="fa-solid fa-check"></i>
+                                    <span class="quest-checkmark" style="border-color: @(quest.Color)80; --color-primary: @quest.Color; --glow-color: @(quest.Color)50;">
+                                        <i class="fa-solid fa-check" style="color: #000; font-weight: 900;"></i>
                                     </span>
                                 </label>
                                 <div class="quest-info">
                                     <span class="quest-name">@quest.Name</span>
                                     <div class="quest-meta">
-                                        <span class="quest-category-badge" style="color: @quest.Color; border: 1px solid @(quest.Color)33; background: @(quest.Color)0d;">
+                                        <span class="quest-category-badge" style="color: @quest.Color; border: 1.5px solid @(quest.Color)33; background: @(quest.Color)0a;">
                                             <i class="fa-solid @categoryIcon" style="margin-right: 5px;"></i>@quest.Category
                                         </span>
                                         <span class="quest-difficulty">
-                                            Rank: @quest.Difficulty
+                                            Rank @quest.Difficulty
                                         </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="quest-right">
-                                <span class="quest-xp-reward" style="color: @quest.Color; border-color: @(quest.Color)33; background: @(quest.Color)0d;">
+                                <span class="quest-xp-reward" style="color: @quest.Color; border-color: @(quest.Color)33; background: @(quest.Color)0d; text-shadow: 0 0 5px @(quest.Color)40;">
                                     +@quest.XPReward XP
                                 </span>
                             </div>
@@ -126,19 +172,42 @@
 
     </div>
 
-    <!-- RIGHT COLUMN: Quick Stats & Achievements -->
-    <div style="display: flex; flex-direction: column; gap: 2.5rem;">
+    <!-- RIGHT COLUMN: Level Up Crest & Quick Stats -->
+    <div style="display: flex; flex-direction: column; gap: 2rem;">
         
+        <!-- Large Level Up / Journey Crest Card -->
+        <div class="glass-card" style="text-align: center; padding: 2.5rem 1.5rem; display: flex; flex-direction: column; align-items: center; border: 2.5px solid var(--color-primary); box-shadow: var(--panel-glow); border-radius: 24px;">
+            <span style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; color: var(--color-primary); text-shadow: 0 0 10px var(--glow-color);">LEVEL UP!</span>
+            
+            <!-- Runic Circle Level Badge -->
+            <div style="margin: 1.5rem 0; position: relative; width: 140px; height: 140px; display: flex; align-items: center; justify-content: center;">
+                <!-- Rotating Runic Ring -->
+                <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 2px dashed var(--color-primary); opacity: 0.45; animation: spinCrest 30s linear infinite;"></div>
+                <!-- Inner Ring -->
+                <div style="position: absolute; width: 85%; height: 85%; border-radius: 50%; border: 1.5px solid var(--border-glass); opacity: 0.6;"></div>
+                
+                <div style="z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span style="font-family: var(--font-display); font-size: 3.2rem; font-weight: 900; color: var(--text-primary); text-shadow: 0 0 15px var(--glow-color);" class="user-level-value">@Model.User.Level</span>
+                    <span style="font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; margin-top: -5px;">Power</span>
+                </div>
+            </div>
+            
+            <span style="font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--color-accent); letter-spacing: 0.5px; min-height: 24px;">@tagline</span>
+            <div style="margin-top: 1.25rem; font-size: 2rem; color: var(--color-primary); filter: drop-shadow(0 0 8px var(--glow-color));">
+                <i class="fa-solid @crestIcon"></i>
+            </div>
+        </div>
+
         <!-- Quick Statistics -->
-        <div class="glass-card">
-            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; border-bottom: 1px solid var(--border-glass); padding-bottom: 1rem; margin-bottom: 1.5rem;">
-                <i class="fa-solid fa-chart-simple" style="color: var(--color-primary); margin-right: 10px;"></i>Quick Statistics
+        <div class="glass-card" style="border-radius: 22px;">
+            <h3 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; border-bottom: 1px solid var(--border-glass); padding-bottom: 0.85rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-chart-simple" style="color: var(--color-primary); filter: drop-shadow(0 0 4px var(--glow-color));"></i>Completion Rate
             </h3>
             
-            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+            <div style="display: flex; flex-direction: column; gap: 1.15rem;">
                 <!-- Completion Rate -->
                 <div>
-                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px; color: var(--text-secondary);">
                         <span>TODAY'S COMPLETION RATE</span>
                         <span style="color: var(--color-primary);">@Model.CompletionRate%</span>
                     </div>
@@ -149,7 +218,7 @@
 
                 <!-- Weekly Progress -->
                 <div>
-                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px; color: var(--text-secondary);">
                         <span>WEEKLY PROGRESS</span>
                         <span style="color: var(--color-secondary);">@Model.WeeklyProgress%</span>
                     </div>
@@ -160,7 +229,7 @@
 
                 <!-- Monthly Progress -->
                 <div>
-                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px; color: var(--text-secondary);">
                         <span>MONTHLY PROGRESS</span>
                         <span style="color: var(--color-accent);">@Model.MonthlyProgress%</span>
                     </div>
@@ -168,27 +237,19 @@
                         <div class="xp-bar-fill" style="width: @(Model.MonthlyProgress)%; background: var(--color-accent);"></div>
                     </div>
                 </div>
-
-                <!-- Achievements Count -->
-                <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid var(--border-glass); margin-top: 0.5rem;">
-                    <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">ACHIEVEMENTS UNLOCKED</span>
-                    <span style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; color: var(--color-accent); text-shadow: 0 0 10px var(--glow-secondary);">
-                        @Model.AchievementsCount
-                    </span>
-                </div>
             </div>
         </div>
 
         <!-- Recent Achievements -->
-        <div class="glass-card">
-            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; border-bottom: 1px solid var(--border-glass); padding-bottom: 1rem; margin-bottom: 1.5rem;">
-                <i class="fa-solid fa-trophy" style="color: var(--color-primary); margin-right: 10px;"></i>Recent Achievements
+        <div class="glass-card" style="border-radius: 22px;">
+            <h3 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; border-bottom: 1px solid var(--border-glass); padding-bottom: 0.85rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-trophy" style="color: var(--color-accent); filter: drop-shadow(0 0 4px var(--glow-secondary));"></i>Recent Achievements
             </h3>
 
-            <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div style="display: flex; flex-direction: column; gap: 0.85rem;">
                 @if (Model.RecentAchievements.Count == 0)
                 {
-                    <p style="text-align: center; color: var(--text-secondary); font-size: 0.85rem; padding: 1.5rem 0;">
+                    <p style="text-align: center; color: var(--text-secondary); font-size: 0.8rem; padding: 1.5rem 0;">
                         No achievements unlocked yet. Continue your quests to earn medals!
                     </p>
                 }
@@ -196,25 +257,46 @@
                 {
                     foreach (var ach in Model.RecentAchievements)
                     {
-                        <div style="display: flex; align-items: flex-start; gap: 12px; padding: 0.75rem; border-radius: 12px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-glass);">
-                            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(255, 215, 0, 0.1); border: 1px solid #FFD700; display: flex; align-items: center; justify-content: center; color: #FFD700; flex-shrink: 0; filter: drop-shadow(0 0 4px rgba(255,215,0,0.3));">
+                        <div style="display: flex; align-items: flex-start; gap: 12px; padding: 0.85rem; border-radius: 12px; background: rgba(0, 0, 0, 0.15); border: 1.5px solid var(--border-glass); transition: transform 0.2s ease;">
+                            <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(245, 158, 11, 0.1); border: 1px solid #F59E0B; display: flex; align-items: center; justify-content: center; color: #F59E0B; flex-shrink: 0; filter: drop-shadow(0 0 4px rgba(245,158,11,0.3));">
                                 <i class="fa-solid fa-medal" style="font-size: 0.95rem;"></i>
                             </div>
                             <div style="display: flex; flex-direction: column; overflow: hidden;">
-                                <span style="font-weight: 600; font-size: 0.95rem; color: var(--text-primary);">@ach.Title</span>
-                                <span style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px;">@ach.Description</span>
+                                <span style="font-weight: 700; font-size: 0.9rem; color: var(--text-primary); white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">@ach.Title</span>
+                                <span style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px; line-height: 1.3;">@ach.Description</span>
                             </div>
                         </div>
                     }
                 }
             </div>
             
-            <div style="text-align: center; margin-top: 1.5rem;">
-                <a asp-controller="Profile" asp-action="Index" style="color: var(--color-primary); font-size: 0.85rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
-                    View All Achievements <i class="fa-solid fa-arrow-right"></i>
+            <div style="text-align: center; margin-top: 1.25rem;">
+                <a asp-controller="Profile" asp-action="Index" asp-fragment="achievements-section" style="color: var(--color-primary); font-size: 0.8rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; letter-spacing: 0.3px; text-transform: uppercase;">
+                    View All Achievements <i class="fa-solid fa-arrow-right" style="font-size: 0.75rem;"></i>
                 </a>
             </div>
         </div>
 
     </div>
 </div>
+
+@section Scripts {
+    <style>
+        @@keyframes spinCrest {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .dashboard-grid {
+            margin-bottom: 2.5rem;
+        }
+
+        @@media (max-width: 992px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+        }
+    </style>
+}

@@ -6,43 +6,43 @@
 <!-- Title -->
 <div style="margin-bottom: 2.5rem;">
     <h1 style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 900; letter-spacing: 1px;">
-        <i class="fa-solid fa-chart-line" style="color: var(--color-primary); margin-right: 10px;"></i>Hunter Analytics
+        <i class="fa-solid fa-chart-line" style="color: var(--color-primary); margin-right: 10px; filter: drop-shadow(0 0 5px var(--glow-color));"></i>Hunter Analytics
     </h1>
     <p style="color: var(--text-secondary); margin-top: 4px;">Track your growth metrics, view quest completion consistency, and review historical performance.</p>
 </div>
 
 <!-- Stats Cards Grid -->
 <div class="stats-summary-grid">
-    <div class="glass-card" style="text-align: center;">
+    <div class="glass-card" style="text-align: center; border-radius: 20px;">
         <span class="status-label">Current Streak</span>
         <div class="stats-card-value" style="color: #FF5722; text-shadow: 0 0 15px rgba(255,87,34,0.4); display: flex; align-items: center; justify-content: center; gap: 8px;">
             <i class="fa-solid fa-fire"></i>
             <span>@Model.CurrentStreak</span>
         </div>
-        <span style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 500;">Active Consecutive Days</span>
+        <span style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">Active Consecutive Days</span>
     </div>
 
-    <div class="glass-card" style="text-align: center;">
+    <div class="glass-card" style="text-align: center; border-radius: 20px;">
         <span class="status-label">Longest Streak</span>
-        <div class="stats-card-value" style="color: var(--color-accent);">
+        <div class="stats-card-value" style="color: var(--color-accent); text-shadow: 0 0 15px var(--glow-secondary);">
             @Model.LongestStreak
         </div>
-        <span style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 500;">All-Time Record</span>
+        <span style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">All-Time Record Days</span>
     </div>
 
-    <div class="glass-card" style="text-align: center;">
+    <div class="glass-card" style="text-align: center; border-radius: 20px;">
         <span class="status-label">30-Day Completion Rate</span>
-        <div class="stats-card-value" style="color: var(--color-primary);">
+        <div class="stats-card-value" style="color: var(--color-primary); text-shadow: 0 0 15px var(--glow-color);">
             @Model.CompletionRate%
         </div>
-        <span style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 500;">Quest Success Consistency</span>
+        <span style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 600;">Quest Success Consistency</span>
     </div>
 </div>
 
 <!-- GitHub-style Heatmap Calendar -->
-<div class="glass-card" style="margin-bottom: 2.5rem; overflow: hidden;">
-    <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; border-bottom: 1px solid var(--border-glass); padding-bottom: 1rem; margin-bottom: 1.5rem;">
-        <i class="fa-solid fa-calendar-days" style="color: var(--color-primary); margin-right: 10px;"></i>Quest Completion Heatmap
+<div class="glass-card" style="margin-bottom: 2.5rem; overflow: hidden; border-radius: 24px;">
+    <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 850; border-bottom: 1px solid var(--border-glass); padding-bottom: 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-calendar-days" style="color: var(--color-primary); filter: drop-shadow(0 0 4px var(--glow-color));"></i>Quest Completion Heatmap
     </h3>
     
     <div class="heatmap-container">
@@ -50,7 +50,7 @@
         <div id="heatmap-grid" class="heatmap-grid"></div>
     </div>
     
-    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--text-secondary); margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border-glass);">
+    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--text-secondary); margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border-glass); flex-wrap: wrap; gap: 10px;">
         <span>Showing logs for the past 365 days</span>
         <div style="display: flex; align-items: center; gap: 6px;">
             <span>Less</span>
@@ -65,25 +65,47 @@
 </div>
 
 <!-- Charts Section -->
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; margin-bottom: 2.5rem;">
+<div class="charts-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; margin-bottom: 3rem;">
     <!-- Weekly completions -->
-    <div class="glass-card">
-        <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; border-bottom: 1px solid var(--border-glass); padding-bottom: 1rem; margin-bottom: 1.5rem;">
-            <i class="fa-solid fa-chart-simple" style="color: var(--color-primary); margin-right: 10px;"></i>Weekly Performance
+    <div class="glass-card" style="border-radius: 24px; min-height: 350px;">
+        <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 850; border-bottom: 1px solid var(--border-glass); padding-bottom: 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-chart-simple" style="color: var(--color-primary); filter: drop-shadow(0 0 4px var(--glow-color));"></i>Weekly Performance
         </h3>
-        <div style="position: relative; height: 260px; width: 100%;">
-            <canvas id="weeklyChart"></canvas>
-        </div>
+        @if (Model.WeeklyAnalytics == null || !Model.WeeklyAnalytics.Any() || Model.WeeklyAnalytics.Values.Sum() == 0)
+        {
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 240px; text-align: center; color: var(--text-secondary); padding: 1rem 2rem;">
+                <i class="fa-solid fa-magnifying-glass-chart" style="font-size: 3rem; color: var(--border-glass); margin-bottom: 1rem; opacity: 0.5;"></i>
+                <p style="font-weight: 700; color: var(--text-primary); font-size: 1rem;">No Weekly Data Available</p>
+                <p style="font-size: 0.85rem; margin-top: 0.4rem; max-width: 280px; line-height: 1.4;">Complete quests this week to reveal your performance.</p>
+            </div>
+        }
+        else
+        {
+            <div style="position: relative; height: 240px; width: 100%;">
+                <canvas id="weeklyChart"></canvas>
+            </div>
+        }
     </div>
 
     <!-- Category Breakdown -->
-    <div class="glass-card">
-        <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; border-bottom: 1px solid var(--border-glass); padding-bottom: 1rem; margin-bottom: 1.5rem;">
-            <i class="fa-solid fa-pie-chart" style="color: var(--color-primary); margin-right: 10px;"></i>Category Distribution
+    <div class="glass-card" style="border-radius: 24px; min-height: 350px;">
+        <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 850; border-bottom: 1px solid var(--border-glass); padding-bottom: 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-chart-pie" style="color: var(--color-accent); filter: drop-shadow(0 0 4px var(--glow-secondary));"></i>Category Distribution
         </h3>
-        <div style="position: relative; height: 260px; width: 100%;">
-            <canvas id="categoryChart"></canvas>
-        </div>
+        @if (Model.CategoryStatistics == null || !Model.CategoryStatistics.Any() || Model.CategoryStatistics.Values.Sum() == 0)
+        {
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 240px; text-align: center; color: var(--text-secondary); padding: 1rem 2rem;">
+                <i class="fa-solid fa-diagram-project" style="font-size: 3rem; color: var(--border-glass); margin-bottom: 1rem; opacity: 0.5;"></i>
+                <p style="font-weight: 700; color: var(--text-primary); font-size: 1rem;">No Category Data Available</p>
+                <p style="font-size: 0.85rem; margin-top: 0.4rem; max-width: 280px; line-height: 1.4;">Complete habits in different categories to see distribution.</p>
+            </div>
+        }
+        else
+        {
+            <div style="position: relative; height: 240px; width: 100%;">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        }
     </div>
 </div>
 
@@ -149,7 +171,7 @@
                 const style = getComputedStyle(document.body);
                 return {
                     primary: style.getPropertyValue('--color-primary').trim() || '#00CFFF',
-                    secondary: style.getPropertyValue('--color-secondary').trim() || '#6A5ACD',
+                    secondary: style.getPropertyValue('--color-secondary').trim() || '#A855F7',
                     text: style.getPropertyValue('--text-primary').trim() || '#FFF',
                     muted: style.getPropertyValue('--text-secondary').trim() || '#94A3B8',
                     border: style.getPropertyValue('--border-glass').trim() || 'rgba(255, 255, 255, 0.08)'
@@ -157,96 +179,117 @@
             }
             
             let colors = getThemeColors();
+            let weeklyChart = null;
+            let categoryChart = null;
 
             // Weekly Chart (Bar)
-            const weeklyData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.WeeklyAnalytics));
-            const weeklyCtx = document.getElementById('weeklyChart').getContext('2d');
-            
-            const weeklyChart = new Chart(weeklyCtx, {
-                type: 'bar',
-                data: {
-                    labels: Object.keys(weeklyData),
-                    datasets: [{
-                        label: 'Completions',
-                        data: Object.values(weeklyData),
-                        backgroundColor: colors.primary + '80', // 50% opacity
-                        borderColor: colors.primary,
-                        borderWidth: 2,
-                        borderRadius: 6,
-                        hoverBackgroundColor: colors.primary
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
+            const weeklyCanvas = document.getElementById('weeklyChart');
+            if (weeklyCanvas) {
+                const weeklyData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.WeeklyAnalytics));
+                const weeklyCtx = weeklyCanvas.getContext('2d');
+                
+                weeklyChart = new Chart(weeklyCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(weeklyData),
+                        datasets: [{
+                            label: 'Completions',
+                            data: Object.values(weeklyData),
+                            backgroundColor: colors.primary + '80', // 50% opacity
+                            borderColor: colors.primary,
+                            borderWidth: 2,
+                            borderRadius: 6,
+                            hoverBackgroundColor: colors.primary
+                        }]
                     },
-                    scales: {
-                        y: {
-                            grid: { color: colors.border },
-                            ticks: { color: colors.muted, stepSize: 1 }
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
                         },
-                        x: {
-                            grid: { display: false },
-                            ticks: { color: colors.muted }
+                        scales: {
+                            y: {
+                                grid: { color: colors.border },
+                                ticks: { color: colors.muted, stepSize: 1 }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { color: colors.muted }
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
 
             // Category Chart (Doughnut)
-            const categoryData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.CategoryStatistics));
-            const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-            
-            const categoryChart = new Chart(categoryCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: Object.keys(categoryData),
-                    datasets: [{
-                        data: Object.values(categoryData),
-                        backgroundColor: [
-                            colors.primary,
-                            colors.secondary,
-                            '#FFD700', // Gold
-                            '#FF7EB6', // Pink
-                            '#4CAF50', // Green
-                            '#FF5722', // Orange
-                            '#00E676'  // Light Green
-                        ],
-                        borderWidth: 1,
-                        borderColor: 'rgba(0,0,0,0.3)'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'right',
-                            labels: { color: colors.muted }
+            const categoryCanvas = document.getElementById('categoryChart');
+            if (categoryCanvas) {
+                const categoryData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.CategoryStatistics));
+                const categoryCtx = categoryCanvas.getContext('2d');
+                
+                categoryChart = new Chart(categoryCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(categoryData),
+                        datasets: [{
+                            data: Object.values(categoryData),
+                            backgroundColor: [
+                                colors.primary,
+                                colors.secondary,
+                                '#F59E0B', // Gold
+                                '#FF7EB6', // Pink
+                                '#10B981', // Green
+                                '#EF4444', // Red
+                                '#3B82F6'  // Blue
+                            ],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: { color: colors.muted, font: { weight: 'bold' } }
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
 
             // Update chart colors on theme change
             const observer = new MutationObserver(() => {
                 colors = getThemeColors();
                 
-                // Update weekly chart
-                weeklyChart.data.datasets[0].backgroundColor = colors.primary + '80';
-                weeklyChart.data.datasets[0].borderColor = colors.primary;
-                weeklyChart.options.scales.y.grid.color = colors.border;
-                weeklyChart.options.scales.y.ticks.color = colors.muted;
-                weeklyChart.options.scales.x.ticks.color = colors.muted;
-                weeklyChart.update();
+                if (weeklyChart) {
+                    weeklyChart.data.datasets[0].backgroundColor = colors.primary + '80';
+                    weeklyChart.data.datasets[0].borderColor = colors.primary;
+                    weeklyChart.options.scales.y.grid.color = colors.border;
+                    weeklyChart.options.scales.y.ticks.color = colors.muted;
+                    weeklyChart.options.scales.x.ticks.color = colors.muted;
+                    weeklyChart.update();
+                }
 
-                // Update category chart
-                categoryChart.options.plugins.legend.labels.color = colors.muted;
-                categoryChart.update();
+                if (categoryChart) {
+                    categoryChart.options.plugins.legend.labels.color = colors.muted;
+                    // Update dataset color palettes based on active themes
+                    categoryChart.data.datasets[0].backgroundColor[0] = colors.primary;
+                    categoryChart.data.datasets[0].backgroundColor[1] = colors.secondary;
+                    categoryChart.update();
+                }
             });
             observer.observe(document.body, { attributes: true });
         });
     </script>
+    
+    <style>
+        @@media (max-width: 992px) {
+            .charts-row {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+        }
+    </style>
 }

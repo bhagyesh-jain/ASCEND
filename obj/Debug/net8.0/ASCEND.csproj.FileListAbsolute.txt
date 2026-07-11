@@ -103,3 +103,4 @@ D:\Code\Antigravity Projects\C#\obj\Debug\net8.0\refint\ASCEND.dll
 D:\Code\Antigravity Projects\C#\obj\Debug\net8.0\ASCEND.pdb
 D:\Code\Antigravity Projects\C#\obj\Debug\net8.0\ASCEND.genruntimeconfig.cache
 D:\Code\Antigravity Projects\C#\obj\Debug\net8.0\ref\ASCEND.dll
+D:\Code\Antigravity Projects\C#\obj\Debug\net8.0\ASCEND.sourcelink.json

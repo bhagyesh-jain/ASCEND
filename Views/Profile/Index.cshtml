@@ -1,104 +1,120 @@
 @model ProfileVM
 @{
     ViewData["Title"] = "Profile & Settings";
+    
+    // Separate achievements for visual separation in vault
+    var unlockedAchievements = Model.Achievements.Where(a => a.IsUnlocked).ToList();
+    var lockedAchievements = Model.Achievements.Where(a => !a.IsUnlocked).ToList();
 }
 
 <div style="margin-bottom: 2.5rem;">
     <h1 style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 900; letter-spacing: 1px;">
-        <i class="fa-solid fa-sliders" style="color: var(--color-primary); margin-right: 10px;"></i>Profile & Settings
+        <i class="fa-solid fa-sliders" style="color: var(--color-primary); margin-right: 10px; filter: drop-shadow(0 0 5px var(--glow-color));"></i>Hunter Profile Settings
     </h1>
-    <p style="color: var(--text-secondary); margin-top: 4px;">Equip your earned titles, alter your theme world, toggle audio systems, and manage your account.</p>
+    <p style="color: var(--text-secondary); margin-top: 4px;">Equip unlocked titles, alter your dimension theme world, toggle audio systems, and manage your account credentials.</p>
 </div>
 
 @if (TempData["SuccessMessage"] != null)
 {
-    <div class="glass-card" style="border-color: #4CAF50; background: rgba(76, 175, 80, 0.08); padding: 1rem 1.5rem; margin-bottom: 2.5rem; border-radius: 12px; display: flex; align-items: center; gap: 10px;">
-        <i class="fa-solid fa-circle-check" style="color: #4CAF50; font-size: 1.2rem;"></i>
-        <span style="color: #F1F8E9; font-weight: 500;">@TempData["SuccessMessage"]</span>
+    <div class="glass-card" style="border-color: #10B981; background: rgba(16, 185, 129, 0.08); padding: 1rem 1.5rem; margin-bottom: 2.5rem; border-radius: 14px; display: flex; align-items: center; gap: 10px;">
+        <i class="fa-solid fa-circle-check" style="color: #10B981; font-size: 1.2rem;"></i>
+        <span style="color: #ECFDF5; font-weight: 600; font-size: 0.95rem;">@TempData["SuccessMessage"]</span>
     </div>
 }
 
 @if (TempData["ErrorMessage"] != null)
 {
-    <div class="glass-card" style="border-color: #EF4444; background: rgba(239, 68, 68, 0.08); padding: 1rem 1.5rem; margin-bottom: 2.5rem; border-radius: 12px; display: flex; align-items: center; gap: 10px;">
+    <div class="glass-card" style="border-color: #EF4444; background: rgba(239, 68, 68, 0.08); padding: 1rem 1.5rem; margin-bottom: 2.5rem; border-radius: 14px; display: flex; align-items: center; gap: 10px;">
         <i class="fa-solid fa-triangle-exclamation" style="color: #EF4444; font-size: 1.2rem;"></i>
-        <span style="color: #FEE2E2; font-weight: 500;">@TempData["ErrorMessage"]</span>
+        <span style="color: #FEE2E2; font-weight: 600; font-size: 0.95rem;">@TempData["ErrorMessage"]</span>
     </div>
 }
 
-<div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2.5rem; align-items: start; margin-bottom: 2.5rem;">
+<div class="profile-layout" style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2.5rem; align-items: start; margin-bottom: 2.5rem;">
     
     <!-- LEFT COLUMN: Theme Switching & Title Equipping -->
     <div style="display: flex; flex-direction: column; gap: 2.5rem;">
         
         <!-- Theme Switching -->
-        <div class="glass-card">
-            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; border-bottom: 1px solid var(--border-glass); padding-bottom: 1.25rem; margin-bottom: 1.5rem;">
-                <i class="fa-solid fa-globe" style="color: var(--color-primary); margin-right: 10px;"></i>Select Dimension Theme
+        <div class="glass-card" style="border-radius: 24px;">
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 850; border-bottom: 1px solid var(--border-glass); padding-bottom: 1.25rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-globe" style="color: var(--color-primary); filter: drop-shadow(0 0 4px var(--glow-color));"></i>Shift Dimension Theme
             </h3>
-            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem;">Shifting your dimension instantly alters the background, colors, fonts, and particle systems across the application.</p>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem; line-height: 1.4;">Shifting your dimension instantly alters the background, colors, fonts, and particle systems across the application.</p>
             
             <!-- Anti-Forgery Token for AJAX -->
             @Html.AntiForgeryToken()
 
             <div class="theme-picker-grid">
                 <!-- Theme 1: Shadow Hunter -->
-                <div class="theme-card @(Model.SelectedTheme == "Shadow Hunter" ? "active" : "")" data-theme-name="Shadow Hunter">
-                    <div class="theme-preview-palette">
-                        <div class="theme-preview-color" style="background: #0B0F19;"></div>
-                        <div class="theme-preview-color" style="background: #00CFFF;"></div>
-                        <div class="theme-preview-color" style="background: #6A5ACD;"></div>
+                <div class="theme-card @(Model.SelectedTheme == "Shadow Hunter" ? "active" : "")" data-theme-name="Shadow Hunter" style="border-radius: 18px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="theme-card-title">Shadow Hunter</span>
+                        <i class="fa-solid fa-skull-crossbones" style="color: #00CFFF;"></i>
                     </div>
-                    <span class="theme-card-title">Shadow Hunter</span>
-                    <span class="theme-card-desc">Dark fantasy. Cyan neon particles, cybernetic RPG status windows.</span>
+                    <div class="theme-preview-palette">
+                        <div class="theme-preview-color" style="background: #05070f;"></div>
+                        <div class="theme-preview-color" style="background: #00CFFF;"></div>
+                        <div class="theme-preview-color" style="background: #A855F7;"></div>
+                    </div>
+                    <span class="theme-card-desc">Dark fantasy solo-leveling theme. Cynical neon borders and electric cyan flow.</span>
                 </div>
 
                 <!-- Theme 2: Sakura Ascension -->
-                <div class="theme-card @(Model.SelectedTheme == "Sakura Ascension" ? "active" : "")" data-theme-name="Sakura Ascension">
+                <div class="theme-card @(Model.SelectedTheme == "Sakura Ascension" ? "active" : "")" data-theme-name="Sakura Ascension" style="border-radius: 18px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="theme-card-title" style="font-family: 'Playfair Display', serif;">Sakura Ascension</span>
+                        <i class="fa-solid fa-spa" style="color: #FF7EB6;"></i>
+                    </div>
                     <div class="theme-preview-palette">
-                        <div class="theme-preview-color" style="background: #1A1025;"></div>
+                        <div class="theme-preview-color" style="background: #150d1a;"></div>
                         <div class="theme-preview-color" style="background: #FF7EB6;"></div>
                         <div class="theme-preview-color" style="background: #C084FC;"></div>
                     </div>
-                    <span class="theme-card-title" style="font-family: 'Playfair Display', serif;">Sakura Ascension</span>
-                    <span class="theme-card-desc">Elegant fantasy. Soft falling cherry blossoms, pink glassmorphism.</span>
+                    <span class="theme-card-desc">Elegant dream world. Falling pink cherry blossoms, cursive displays and soft glows.</span>
                 </div>
 
                 <!-- Theme 3: Celestial Realm -->
-                <div class="theme-card @(Model.SelectedTheme == "Celestial Realm" ? "active" : "")" data-theme-name="Celestial Realm">
-                    <div class="theme-preview-palette">
-                        <div class="theme-preview-color" style="background: #0D1B2A;"></div>
-                        <div class="theme-preview-color" style="background: #E0AAFF;"></div>
-                        <div class="theme-preview-color" style="background: #FFD6FF;"></div>
+                <div class="theme-card @(Model.SelectedTheme == "Celestial Realm" ? "active" : "")" data-theme-name="Celestial Realm" style="border-radius: 18px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="theme-card-title">Celestial Realm</span>
+                        <i class="fa-solid fa-moon" style="color: #818CF8;"></i>
                     </div>
-                    <span class="theme-card-title">Celestial Realm</span>
-                    <span class="theme-card-desc">Cosmic fantasy. Twinkling starry nights and constellation achievements.</span>
+                    <div class="theme-preview-palette">
+                        <div class="theme-preview-color" style="background: #060913;"></div>
+                        <div class="theme-preview-color" style="background: #818CF8;"></div>
+                        <div class="theme-preview-color" style="background: #C084FC;"></div>
+                    </div>
+                    <span class="theme-card-desc">Deep space exploration. Twinkling cosmic alignments and starlight grids.</span>
                 </div>
 
                 <!-- Theme 4: Forest Guardian -->
-                <div class="theme-card @(Model.SelectedTheme == "Forest Guardian" ? "active" : "")" data-theme-name="Forest Guardian">
-                    <div class="theme-preview-palette">
-                        <div class="theme-preview-color" style="background: #102A13;"></div>
-                        <div class="theme-preview-color" style="background: #4CAF50;"></div>
-                        <div class="theme-preview-color" style="background: #FFD700;"></div>
+                <div class="theme-card @(Model.SelectedTheme == "Forest Guardian" ? "active" : "")" data-theme-name="Forest Guardian" style="border-radius: 18px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="theme-card-title">Forest Guardian</span>
+                        <i class="fa-solid fa-leaf" style="color: #10B981;"></i>
                     </div>
-                    <span class="theme-card-title">Forest Guardian</span>
-                    <span class="theme-card-desc">Nature fantasy. Drifting magical forest leaves and gold accents.</span>
+                    <div class="theme-preview-palette">
+                        <div class="theme-preview-color" style="background: #0a0e0b;"></div>
+                        <div class="theme-preview-color" style="background: #10B981;"></div>
+                        <div class="theme-preview-color" style="background: #F59E0B;"></div>
+                    </div>
+                    <span class="theme-card-desc">Peaceful balance. Earthy dark panels accented with lush emeralds and royal gold.</span>
                 </div>
             </div>
         </div>
 
         <!-- Title Room -->
-        <div class="glass-card">
-            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; border-bottom: 1px solid var(--border-glass); padding-bottom: 1.25rem; margin-bottom: 1.5rem;">
-                <i class="fa-solid fa-crown" style="color: var(--color-primary); margin-right: 10px;"></i>Title Equip Chamber
+        <div class="glass-card" style="border-radius: 24px;">
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 850; border-bottom: 1px solid var(--border-glass); padding-bottom: 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-crown" style="color: var(--color-accent); filter: drop-shadow(0 0 4px var(--glow-secondary));"></i>Title Equip Chamber
             </h3>
 
             <form asp-action="UpdateTitle" method="post">
                 @Html.AntiForgeryToken()
                 <div class="form-group">
-                    <label class="form-label">Equip Active Title</label>
-                    <select name="title" class="form-input" style="cursor: pointer; margin-bottom: 1.25rem;">
+                    <label class="form-label">Equip Active Title Badge</label>
+                    <select name="title" class="form-input" style="cursor: pointer; margin-bottom: 1.25rem; background-color: rgba(0, 0, 0, 0.35);">
                         @foreach (var t in Model.AvailableTitles)
                         {
                             if (t.IsUnlocked)
@@ -113,7 +129,7 @@
                     </select>
                 </div>
                 <button type="submit" class="btn-premium">
-                    <i class="fa-solid fa-shield-halved"></i> Equip Title
+                    <i class="fa-solid fa-shield-halved"></i> Equip Title Badge
                 </button>
             </form>
         </div>
@@ -124,31 +140,31 @@
     <div style="display: flex; flex-direction: column; gap: 2.5rem;">
         
         <!-- Profile details -->
-        <div class="glass-card">
-            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; border-bottom: 1px solid var(--border-glass); padding-bottom: 1.25rem; margin-bottom: 1.5rem;">
-                <i class="fa-solid fa-user-gear" style="color: var(--color-primary); margin-right: 10px;"></i>Hunter Profile Details
+        <div class="glass-card" style="border-radius: 24px;">
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 850; border-bottom: 1px solid var(--border-glass); padding-bottom: 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-user-gear" style="color: var(--color-primary); filter: drop-shadow(0 0 4px var(--glow-color));"></i>Hunter Profile Details
             </h3>
 
             <form asp-action="UpdateProfile" method="post">
                 @Html.AntiForgeryToken()
                 <div class="form-group">
                     <label asp-for="Username" class="form-label">Username</label>
-                    <input asp-for="Username" class="form-input" />
+                    <input asp-for="Username" class="form-input" placeholder="Update username..." required />
                 </div>
                 <div class="form-group">
                     <label asp-for="Email" class="form-label">Email Address</label>
-                    <input asp-for="Email" type="email" class="form-input" />
+                    <input asp-for="Email" type="email" class="form-input" placeholder="Update email..." required />
                 </div>
-                <button type="submit" class="btn-premium">
+                <button type="submit" class="btn-premium" style="width: 100%;">
                     <i class="fa-solid fa-floppy-disk"></i> Update Profile
                 </button>
             </form>
         </div>
 
         <!-- Change Password -->
-        <div class="glass-card">
-            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; border-bottom: 1px solid var(--border-glass); padding-bottom: 1.25rem; margin-bottom: 1.5rem;">
-                <i class="fa-solid fa-key" style="color: var(--color-primary); margin-right: 10px;"></i>Change Password
+        <div class="glass-card" style="border-radius: 24px;">
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 850; border-bottom: 1px solid var(--border-glass); padding-bottom: 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-key" style="color: var(--color-primary); filter: drop-shadow(0 0 4px var(--glow-color));"></i>Change Credentials
             </h3>
 
             <form asp-action="ChangePassword" method="post">
@@ -161,22 +177,22 @@
                     <label asp-for="NewPassword" class="form-label">New Password</label>
                     <input asp-for="NewPassword" type="password" class="form-input" placeholder="••••••••" required />
                 </div>
-                <button type="submit" class="btn-premium" style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-glass); color: var(--text-primary); box-shadow: none;">
+                <button type="submit" class="btn-premium" style="background: rgba(255, 255, 255, 0.04); border: 1.5px solid var(--border-glass); color: var(--text-primary); box-shadow: none; width: 100%;">
                     <i class="fa-solid fa-lock-open"></i> Reset Password
                 </button>
             </form>
         </div>
 
         <!-- Sound Settings -->
-        <div class="glass-card">
-            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; border-bottom: 1px solid var(--border-glass); padding-bottom: 1.25rem; margin-bottom: 1rem;">
-                <i class="fa-solid fa-volume-high" style="color: var(--color-primary); margin-right: 10px;"></i>Acoustic Systems
+        <div class="glass-card" style="border-radius: 24px;">
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 850; border-bottom: 1px solid var(--border-glass); padding-bottom: 1.25rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-volume-high" style="color: var(--color-accent); filter: drop-shadow(0 0 4px var(--glow-secondary));"></i>Acoustic Systems
             </h3>
-            <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0;">
-                <span style="font-size: 0.9rem; color: var(--text-secondary);">Enable RPG synthesizer sounds (level-up, quest complete)</span>
-                <label style="position: relative; display: inline-block; width: 44px; height: 24px; cursor: pointer;">
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0; gap: 15px;">
+                <span style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4;">Enable RPG synthesizer sounds on level-up and completions</span>
+                <label style="position: relative; display: inline-block; width: 44px; height: 24px; cursor: pointer; flex-shrink: 0;">
                     <input type="checkbox" id="sound-settings-toggle" style="opacity: 0; width: 0; height: 0;" />
-                    <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.1); transition: .4s; border-radius: 24px; border: 1px solid var(--border-glass);" class="slider"></span>
+                    <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.06); transition: .4s; border-radius: 24px; border: 1.5px solid var(--border-glass);" class="slider"></span>
                 </label>
             </div>
         </div>
@@ -185,34 +201,73 @@
 </div>
 
 <!-- BOTTOM SECTION: Achievements Vault -->
-<div class="glass-card" style="margin-bottom: 2.5rem;">
-    <h3 style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; border-bottom: 1px solid var(--border-glass); padding-bottom: 1.25rem; margin-bottom: 2rem;">
-        <i class="fa-solid fa-award" style="color: var(--color-primary); margin-right: 12px; filter: drop-shadow(0 0 5px var(--glow-color));"></i>Achievements Vault
+<div class="glass-card" id="achievements-section" style="margin-bottom: 3.5rem; border-radius: 24px; scroll-margin-top: 2rem;">
+    <h3 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; border-bottom: 1px solid var(--border-glass); padding-bottom: 1.25rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 12px;">
+        <i class="fa-solid fa-award" style="color: var(--color-primary); filter: drop-shadow(0 0 5px var(--glow-color));"></i>Achievements Vault
     </h3>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem;">
-        @foreach (var ach in Model.Achievements)
+    <!-- Group 1: Unlocked Achievements -->
+    <div style="margin-bottom: 2.5rem;">
+        <h4 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: var(--color-primary); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-unlock" style="font-size: 0.95rem;"></i> Unlocked Medal Hall (@unlockedAchievements.Count)
+        </h4>
+        @if (unlockedAchievements.Count == 0)
         {
-            <div class="glass-card" style="padding: 1.5rem; border-radius: 16px; border: 1.5px solid @(ach.IsUnlocked ? "var(--color-primary)" : "var(--border-glass)"); background: @(ach.IsUnlocked ? "var(--card-gradient)" : "rgba(255,255,255,0.01)"); display: flex; align-items: flex-start; gap: 15px; opacity: @(ach.IsUnlocked ? "1" : "0.5"); box-shadow: @(ach.IsUnlocked ? "var(--glow-shadow)" : "none");">
-                <div style="width: 42px; height: 42px; border-radius: 50%; background: @(ach.IsUnlocked ? "rgba(255, 215, 0, 0.15)" : "rgba(255,255,255,0.03)"); border: 1.5px solid @(ach.IsUnlocked ? "#FFD700" : "var(--border-glass)"); display: flex; align-items: center; justify-content: center; color: @(ach.IsUnlocked ? "#FFD700" : "var(--text-secondary)"); flex-shrink: 0; filter: @(ach.IsUnlocked ? "drop-shadow(0 0 6px rgba(255,215,0,0.4))" : "none");">
-                    <i class="fa-solid fa-trophy" style="font-size: 1.2rem;"></i>
-                </div>
-                <div style="display: flex; flex-direction: column;">
-                    <span style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">@ach.Title</span>
-                    <span style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.4;">@ach.Description</span>
-                    @if (ach.IsUnlocked)
-                    {
-                        <span style="font-size: 0.7rem; color: var(--color-primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 8px;">
-                            Unlocked: @ach.UnlockDate
-                        </span>
-                    }
-                    else
-                    {
-                        <span style="font-size: 0.7rem; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 8px;">
-                            Locked
-                        </span>
-                    }
-                </div>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; background: rgba(0, 0, 0, 0.15); padding: 1.5rem; border-radius: 12px; text-align: center; border: 1px dashed var(--border-glass);">
+                No achievements unlocked yet. Fulfill habit quests daily to unlock your legendary titles!
+            </p>
+        }
+        else
+        {
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                @foreach (var ach in unlockedAchievements)
+                {
+                    <div class="glass-card" style="padding: 1.25rem 1.5rem; border-radius: 16px; border: 1.5px solid var(--color-primary); background: rgba(255,255,255,0.015); display: flex; align-items: flex-start; gap: 15px; box-shadow: var(--glow-shadow);">
+                        <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(245, 158, 11, 0.12); border: 1.5px solid #F59E0B; display: flex; align-items: center; justify-content: center; color: #F59E0B; flex-shrink: 0; filter: drop-shadow(0 0 6px rgba(245,158,11,0.45));">
+                            <i class="fa-solid fa-trophy" style="font-size: 1.2rem;"></i>
+                        </div>
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-weight: 800; font-size: 1.05rem; color: var(--text-primary);">@ach.Title</span>
+                            <span style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.4;">@ach.Description</span>
+                            <span style="font-size: 0.7rem; color: var(--color-primary); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 8px;">
+                                Unlocked: @ach.UnlockDate
+                            </span>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Group 2: Locked Achievements -->
+    <div>
+        <h4 style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: var(--text-secondary); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-lock" style="font-size: 0.95rem;"></i> Locked Vaults (@lockedAchievements.Count)
+        </h4>
+        @if (lockedAchievements.Count == 0)
+        {
+            <p style="color: var(--text-secondary); font-size: 0.85rem; padding: 1rem; text-align: center;">
+                All legendary medals unlocked! You are a master hunter!
+            </p>
+        }
+        else
+        {
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                @foreach (var ach in lockedAchievements)
+                {
+                    <div class="glass-card" style="padding: 1.25rem 1.5rem; border-radius: 16px; border: 1.5px solid var(--border-glass); background: rgba(0, 0, 0, 0.15); display: flex; align-items: flex-start; gap: 15px; opacity: 0.45;">
+                        <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.03); border: 1.5px solid var(--border-glass); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); flex-shrink: 0;">
+                            <i class="fa-solid fa-lock" style="font-size: 1.1rem;"></i>
+                        </div>
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-weight: 700; font-size: 1.05rem; color: var(--text-primary);">@ach.Title</span>
+                            <span style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.4;">@ach.Description</span>
+                            <span style="font-size: 0.7rem; color: var(--text-secondary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 8px;">
+                                Locked
+                            </span>
+                        </div>
+                    </div>
+                }
             </div>
         }
     </div>
@@ -239,6 +294,13 @@
         }
         input:checked + .slider:before {
             transform: translateX(20px);
+        }
+
+        @@media (max-width: 992px) {
+            .profile-layout {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
         }
     </style>
 }

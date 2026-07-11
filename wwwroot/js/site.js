@@ -304,4 +304,28 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // Set active nav items on profile page depending on hash
+  function updateProfileNavActiveState() {
+    const path = window.location.pathname;
+    if (path.toLowerCase().includes('/profile')) {
+      const navProfile = document.getElementById('nav-profile');
+      const navAchievements = document.getElementById('nav-achievements');
+      if (navProfile && navAchievements) {
+        navProfile.classList.remove('active');
+        navAchievements.classList.remove('active');
+        
+        if (window.location.hash === '#achievements-section') {
+          navAchievements.classList.add('active');
+        } else {
+          navProfile.classList.add('active');
+        }
+      }
+    }
+  }
+
+  // Run on load and hash change
+  updateProfileNavActiveState();
+  window.addEventListener('hashchange', updateProfileNavActiveState);
 });
+

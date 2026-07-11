@@ -5,38 +5,40 @@
    THEME VARIABLES
    ========================================== */
 
-/* 1. SHADOW HUNTER (Dark Blue & Neon Cyan/Purple) */
+/* 1. SHADOW HUNTER (Solo-Leveling / Dark Cyber RPG) */
 [data-theme="Shadow Hunter"] {
-  --bg-primary: #0B0F19;
-  --bg-secondary: #111827;
-  --bg-glass: rgba(11, 15, 25, 0.65);
-  --border-glass: rgba(0, 207, 255, 0.15);
-  --border-glass-hover: rgba(0, 207, 255, 0.35);
+  --bg-primary: #05070f;
+  --bg-secondary: #0c0e17;
+  --bg-glass: rgba(8, 10, 20, 0.75);
+  --border-glass: rgba(0, 207, 255, 0.18);
+  --border-glass-hover: rgba(168, 85, 247, 0.4);
   
   --text-primary: #F1F5F9;
   --text-secondary: #94A3B8;
   --text-accent: #00CFFF;
   
   --color-primary: #00CFFF;
-  --color-secondary: #6A5ACD;
-  --color-accent: #5DE2FF;
+  --color-secondary: #A855F7;
+  --color-accent: #3B82F6;
   
   --glow-color: rgba(0, 207, 255, 0.5);
-  --glow-secondary: rgba(106, 90, 205, 0.5);
+  --glow-secondary: rgba(168, 85, 247, 0.5);
   --glow-shadow: 0 0 15px var(--glow-color);
   
   --font-display: 'Orbitron', sans-serif;
-  --bg-gradient: linear-gradient(135deg, #0B0F19 0%, #151C2C 100%);
-  --card-gradient: linear-gradient(135deg, rgba(0, 207, 255, 0.03) 0%, rgba(106, 90, 205, 0.05) 100%);
+  --bg-gradient: linear-gradient(135deg, #05070f 0%, #111424 100%);
+  --card-gradient: linear-gradient(135deg, rgba(0, 207, 255, 0.05) 0%, rgba(168, 85, 247, 0.06) 100%);
+  --avatar-glow: 0 0 15px rgba(0, 207, 255, 0.4);
+  --panel-glow: 0 0 30px rgba(168, 85, 247, 0.15);
 }
 
-/* 2. SAKURA ASCENSION (Deep Violet & Elegant Pink) */
+/* 2. SAKURA ASCENSION (Dreamy Cherry Blossom Fantasy) */
 [data-theme="Sakura Ascension"] {
-  --bg-primary: #1A1025;
-  --bg-secondary: #241635;
-  --bg-glass: rgba(26, 16, 37, 0.7);
-  --border-glass: rgba(255, 126, 182, 0.2);
-  --border-glass-hover: rgba(255, 126, 182, 0.45);
+  --bg-primary: #150d1a;
+  --bg-secondary: #1e1326;
+  --bg-glass: rgba(26, 16, 30, 0.8);
+  --border-glass: rgba(255, 126, 182, 0.22);
+  --border-glass-hover: rgba(216, 180, 254, 0.5);
   
   --text-primary: #FFF1F2;
   --text-secondary: #D8B4FE;
@@ -44,65 +46,71 @@
   
   --color-primary: #FF7EB6;
   --color-secondary: #C084FC;
-  --color-accent: #FFD6E8;
+  --color-accent: #FCA5A5;
   
-  --glow-color: rgba(255, 126, 182, 0.5);
-  --glow-secondary: rgba(192, 132, 252, 0.4);
+  --glow-color: rgba(255, 126, 182, 0.45);
+  --glow-secondary: rgba(192, 132, 252, 0.45);
   --glow-shadow: 0 0 15px var(--glow-color);
   
   --font-display: 'Playfair Display', serif;
-  --bg-gradient: linear-gradient(135deg, #1A1025 0%, #291B3A 100%);
-  --card-gradient: linear-gradient(135deg, rgba(255, 126, 182, 0.05) 0%, rgba(192, 132, 252, 0.05) 100%);
+  --bg-gradient: linear-gradient(135deg, #150d1a 0%, #281633 100%);
+  --card-gradient: linear-gradient(135deg, rgba(255, 126, 182, 0.05) 0%, rgba(192, 132, 252, 0.06) 100%);
+  --avatar-glow: 0 0 15px rgba(255, 126, 182, 0.4);
+  --panel-glow: 0 0 30px rgba(255, 126, 182, 0.15);
 }
 
-/* 3. CELESTIAL REALM (Cosmic Navy & Starry Purple) */
+/* 3. CELESTIAL REALM (Limitless Starry Galaxy) */
 [data-theme="Celestial Realm"] {
-  --bg-primary: #0D1B2A;
-  --bg-secondary: #1B263B;
-  --bg-glass: rgba(13, 27, 42, 0.75);
-  --border-glass: rgba(224, 170, 255, 0.15);
-  --border-glass-hover: rgba(224, 170, 255, 0.35);
+  --bg-primary: #060913;
+  --bg-secondary: #0d1222;
+  --bg-glass: rgba(8, 12, 26, 0.78);
+  --border-glass: rgba(129, 140, 248, 0.2);
+  --border-glass-hover: rgba(224, 170, 255, 0.45);
   
-  --text-primary: #F0E6FF;
-  --text-secondary: #A5A5A5;
-  --text-accent: #E0AAFF;
+  --text-primary: #E0E7FF;
+  --text-secondary: #94A3B8;
+  --text-accent: #A5B4FC;
   
-  --color-primary: #E0AAFF;
-  --color-secondary: #FFD6FF;
-  --color-accent: #FFFFFF; /* Silver / White */
+  --color-primary: #818CF8;
+  --color-secondary: #C084FC;
+  --color-accent: #E0AAFF;
   
-  --glow-color: rgba(224, 170, 255, 0.5);
-  --glow-secondary: rgba(255, 214, 255, 0.4);
+  --glow-color: rgba(129, 140, 248, 0.5);
+  --glow-secondary: rgba(192, 132, 252, 0.5);
   --glow-shadow: 0 0 15px var(--glow-color);
   
   --font-display: 'Montserrat', sans-serif;
-  --bg-gradient: linear-gradient(135deg, #0D1B2A 0%, #1B263B 100%);
-  --card-gradient: linear-gradient(135deg, rgba(224, 170, 255, 0.04) 0%, rgba(255, 214, 255, 0.04) 100%);
+  --bg-gradient: linear-gradient(135deg, #060913 0%, #141a31 100%);
+  --card-gradient: linear-gradient(135deg, rgba(129, 140, 248, 0.05) 0%, rgba(224, 170, 255, 0.05) 100%);
+  --avatar-glow: 0 0 15px rgba(129, 140, 248, 0.45);
+  --panel-glow: 0 0 30px rgba(192, 132, 252, 0.15);
 }
 
-/* 4. FOREST GUARDIAN (Deep Emerald & Celestial Gold) */
+/* 4. FOREST GUARDIAN (Balanced Organic & Gold RPG) */
 [data-theme="Forest Guardian"] {
-  --bg-primary: #102A13;
-  --bg-secondary: #163E1B;
-  --bg-glass: rgba(16, 42, 19, 0.7);
-  --border-glass: rgba(76, 175, 80, 0.25);
-  --border-glass-hover: rgba(255, 215, 0, 0.3);
+  --bg-primary: #0a0e0b;
+  --bg-secondary: #111a13;
+  --bg-glass: rgba(12, 20, 15, 0.8);
+  --border-glass: rgba(16, 185, 129, 0.22);
+  --border-glass-hover: rgba(245, 158, 11, 0.45);
   
-  --text-primary: #F1F8E9;
-  --text-secondary: #C5E1A5;
-  --text-accent: #FFD700; /* Gold */
+  --text-primary: #ECFDF5;
+  --text-secondary: #A7F3D0;
+  --text-accent: #F59E0B; /* Rich Gold */
   
-  --color-primary: #4CAF50;
-  --color-secondary: #81C784;
-  --color-accent: #FFD700;
+  --color-primary: #10B981; /* Emerald Green */
+  --color-secondary: #059669;
+  --color-accent: #F59E0B; /* Gold */
   
-  --glow-color: rgba(76, 175, 80, 0.5);
-  --glow-secondary: rgba(255, 215, 0, 0.4);
+  --glow-color: rgba(16, 185, 129, 0.45);
+  --glow-secondary: rgba(245, 158, 11, 0.45);
   --glow-shadow: 0 0 15px var(--glow-color);
   
   --font-display: 'Inter', sans-serif;
-  --bg-gradient: linear-gradient(135deg, #102A13 0%, #1B4D22 100%);
-  --card-gradient: linear-gradient(135deg, rgba(76, 175, 80, 0.05) 0%, rgba(255, 215, 0, 0.05) 100%);
+  --bg-gradient: linear-gradient(135deg, #0a0e0b 0%, #152218 100%);
+  --card-gradient: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%);
+  --avatar-glow: 0 0 15px rgba(16, 185, 129, 0.4);
+  --panel-glow: 0 0 30px rgba(245, 158, 11, 0.15);
 }
 
 /* ==========================================
@@ -114,12 +122,15 @@ body,
 .btn-premium, 
 .quest-item, 
 h1, h2, h3, h4, 
-.progress-bar-inner {
-  transition: background 0.5s ease, 
-              border 0.5s ease, 
-              color 0.5s ease, 
-              box-shadow 0.5s ease, 
-              font-family 0.5s ease;
+.xp-bar-fill,
+.app-sidebar,
+.nav-item {
+  transition: background 0.4s ease, 
+              border 0.4s ease, 
+              color 0.4s ease, 
+              box-shadow 0.4s ease, 
+              font-family 0.4s ease,
+              transform 0.3s ease;
 }
 
 /* ==========================================
@@ -128,7 +139,7 @@ h1, h2, h3, h4,
 
 /* Neon Text Pulse (Shadow Hunter) */
 [data-theme="Shadow Hunter"] .neon-text {
-  text-shadow: 0 0 10px rgba(0, 207, 255, 0.6), 0 0 20px rgba(0, 207, 255, 0.3);
+  text-shadow: 0 0 8px rgba(0, 207, 255, 0.6), 0 0 18px rgba(168, 85, 247, 0.4);
   animation: shadowPulse 2s infinite alternate;
 }
 
@@ -137,27 +148,33 @@ h1, h2, h3, h4,
   background: linear-gradient(90deg, #FF7EB6, #C084FC, #FFD6E8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: sakuraShimmer 3s linear infinite;
+  animation: sakuraShimmer 3.5s linear infinite;
   background-size: 200% auto;
 }
 
 /* Cosmic Glow (Celestial) */
 [data-theme="Celestial Realm"] .neon-text {
-  text-shadow: 0 0 8px rgba(224, 170, 255, 0.8), 0 0 15px rgba(255, 214, 255, 0.4);
+  text-shadow: 0 0 10px rgba(129, 140, 248, 0.8), 0 0 20px rgba(192, 132, 252, 0.4);
+  background: linear-gradient(135deg, #E0E7FF 0%, #C084FC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Golden Sparkle (Forest) */
 [data-theme="Forest Guardian"] .neon-text {
-  text-shadow: 0 0 8px rgba(255, 215, 0, 0.6), 0 0 15px rgba(76, 175, 80, 0.4);
+  text-shadow: 0 0 6px rgba(245, 158, 11, 0.5), 0 0 12px rgba(16, 185, 129, 0.3);
+  background: linear-gradient(135deg, #ECFDF5 0%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Animations definitions */
 @keyframes shadowPulse {
   0% {
-    text-shadow: 0 0 8px rgba(0, 207, 255, 0.6), 0 0 15px rgba(0, 207, 255, 0.3);
+    text-shadow: 0 0 6px rgba(0, 207, 255, 0.5), 0 0 12px rgba(168, 85, 247, 0.3);
   }
   100% {
-    text-shadow: 0 0 15px rgba(0, 207, 255, 0.9), 0 0 30px rgba(106, 90, 205, 0.6);
+    text-shadow: 0 0 12px rgba(0, 207, 255, 0.9), 0 0 24px rgba(168, 85, 247, 0.7);
   }
 }
 

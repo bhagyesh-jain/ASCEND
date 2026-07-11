@@ -3,6 +3,15 @@
     var theme = User.FindFirst("Theme")?.Value ?? "Shadow Hunter";
     var username = User.Identity?.Name ?? "Guest";
     var userEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value ?? "";
+    
+    // Dynamic RPG Class Title based on the active theme
+    var classTitle = theme switch
+    {
+        "Sakura Ascension" => "Dreamer",
+        "Celestial Realm" => "Stargazer",
+        "Forest Guardian" => "Guardian",
+        _ => "Hunter"
+    };
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -46,9 +55,13 @@
                         <i class="fa-solid fa-chart-line"></i>
                         <span>Statistics</span>
                     </a>
-                    <a asp-controller="Profile" asp-action="Index" class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Profile" ? "active" : "")">
+                    <a asp-controller="Profile" asp-action="Index" asp-fragment="achievements-section" id="nav-achievements" class="nav-item">
+                        <i class="fa-solid fa-award"></i>
+                        <span>Achievements</span>
+                    </a>
+                    <a asp-controller="Profile" asp-action="Index" id="nav-profile" class="nav-item">
                         <i class="fa-solid fa-sliders"></i>
-                        <span>Profile & Shop</span>
+                        <span>Profile</span>
                     </a>
                 </nav>
 
@@ -59,7 +72,7 @@
                         </div>
                         <div class="user-meta">
                             <span class="name">@username</span>
-                            <span class="title">Hunter</span>
+                            <span class="title">@classTitle</span>
                         </div>
                     </div>
                     <form asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
@@ -85,7 +98,7 @@
                 <div class="level-up-text">Your power has increased. You have ascended to a new height!</div>
                 <div class="level-up-badge" id="modal-level-badge">1</div>
                 <div>
-                    <h3 style="font-family: var(--font-display); color: var(--color-accent); margin-bottom: 2rem;" id="modal-rank-text">E Rank</h3>
+                    <h3 style="font-family: var(--font-display); color: var(--color-primary); margin-bottom: 2rem;" id="modal-rank-text">E Rank</h3>
                 </div>
                 <button class="btn-premium" onclick="closeLevelUpModal()">
                     <i class="fa-solid fa-sword"></i> Continue Hunt
